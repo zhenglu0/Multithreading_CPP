@@ -1,0 +1,395 @@
+1. Ethan Rabb, Gabriel Hope, Kevin Kieselbach
+2.
+
+// hsha.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+bool isprime(int num){
+for(int i = 2; i < sqrt(num); ++i){
+if(num % i == 0)
+return false;
+}
+
+return true;
+}
+
+int main(int argc, char* argv[])
+{
+cout << "77: " << isprime(77) << endl;
+cout << "31: " << isprime(31) << endl;
+cout << "15: " << isprime(15) << endl;
+cout << "475: " << isprime(475) << endl;
+cout << "7657243: " << isprime(7657243) << endl;
+
+return 0;
+}
+
+Output:
+
+77: 0
+31: 1
+15: 0
+475: 0
+7657243: 0
+
+3.
+
+//synchronized.h
+#include <iostream>
+#include <mutex>
+#include <string>
+
+using namespace std;
+
+class sync_wrapper{
+ostream& stream;
+mutex mut;
+public:
+sync_wrapper(ostream& s);
+void print(const string& str);
+ 
+};
+
+//synchronized.cpp
+#include "stdafx.h"
+#include "synchronized.h"
+
+sync_wrapper::sync_wrapper(ostream& s): stream(s) {}
+
+void sync_wrapper::print(const string& str){
+lock_guard<mutex> guard(mut);
+stream << str;
+}
+
+//pool.h
+#pragma once
+#include <queue>
+#include <functional>
+#include <vector>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+using namespace std;
+class pool
+{
+condition_variable cv;
+mutex mut;
+queue<function<void()>> work_queue;
+vector<thread> my_pool;
+bool done;
+
+public:
+pool(int t);
+void add_task(function<void()> func);
+
+~pool(void);
+};
+
+//pool.cpp
+#include "stdafx.h"
+#include "pool.h"
+
+
+pool::pool(int t) : done(false)
+{
+for(int i = 0; i < t; ++i){
+this->my_pool.push_back(thread([this]{
+while(true) {
+unique_lock<mutex> lock(this->mut);
+this->cv.wait(lock, [this]{return !this->work_queue.empty() || done;});
+if(done){
+return;
+}
+function<void()> func = this->work_queue.front();
+this->work_queue.pop();
+lock.unlock();
+func();
+}
+}));
+}
+}
+
+
+pool::~pool(void)
+{
+this->done = true;
+cv.notify_all();
+for(thread& t : this->my_pool){
+t.join();
+}
+}
+
+void pool::add_task(function<void()> func){
+lock_guard<mutex> lock(this->mut);
+this->work_queue.push(func);
+this->cv.notify_all();
+}
+
+// hsha.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <sstream>
+#include <chrono>
+#include "pool.h"
+#include "synchronized.h"
+
+using namespace std;
+using namespace chrono;
+
+bool isprime(int num){
+for(int i = 2; i < sqrt(num); ++i){
+if(num % i == 0)
+return false;
+}
+
+return true;
+}
+
+void calcPrime(sync_wrapper& wrapper, int num){
+bool prime = isprime(num);
+stringstream stream;
+stream  << num << ": " << boolalpha << prime << "\n";
+wrapper.print(stream.str());
+}
+
+int main(int argc, char* argv[])
+{
+pool p(5);
+sync_wrapper printer(cout);
+
+p.add_task(bind(calcPrime, ref(printer), 77));
+p.add_task(bind(calcPrime, ref(printer), 31));
+p.add_task(bind(calcPrime, ref(printer), 15));
+p.add_task(bind(calcPrime, ref(printer), 475));
+p.add_task(bind(calcPrime, ref(printer), 7657243));
+p.add_task(bind(calcPrime, ref(printer), 263));
+p.add_task(bind(calcPrime, ref(printer), 6047));
+p.add_task(bind(calcPrime, ref(printer), 15485863));
+
+this_thread::sleep_for(seconds(5));
+
+return 0;
+}
+
+
+Output:
+
+77: false
+31: true
+15: false
+475: false
+7657243: false
+263: true
+6047: true
+15485863: true
+
+4)
+//pool.h
+#pragma once
+#include <queue>
+#include <iostream>
+#include <functional>
+#include <vector>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include "synchronized.h"
+
+using namespace std;
+class pool
+{
+sync_wrapper wrapper;
+condition_variable cv;
+mutex mut;
+queue<int> work_queue;
+vector<thread> my_pool;
+bool done;
+
+public:
+pool(int t);
+void add_task(int num);
+bool isprime(int num);
+void calcPrime(int num);
+
+~pool(void);
+};
+
+//pool.cpp
+#include "stdafx.h"
+#include "pool.h"
+#include <sstream>
+
+bool pool::isprime(int num){
+for(int i = 2; i < sqrt(num); ++i){
+if(num % i == 0)
+return false;
+}
+
+return true;
+}
+
+void pool::calcPrime(int num){
+bool prime = isprime(num);
+
+stringstream stream;
+stream  << num << ": " << boolalpha << prime << "\n";
+wrapper.print(stream.str());
+}
+
+pool::pool(int t) : done(false), wrapper(cout)
+{
+for(int i = 0; i < t; ++i){
+this->my_pool.push_back(thread([this]{
+while(true) {
+unique_lock<mutex> lock(this->mut);
+this->cv.wait(lock, [this]{return !this->work_queue.empty() || done;});
+if(done){
+return;
+}
+ 
+cout << "Leader thread is now: " << this_thread::get_id() << endl;
+
+int num = 0;
+while(true){
+if(this->work_queue.empty()){
+break;
+}
+
+num = this->work_queue.front();
+this->work_queue.pop();
+
+if(num % 2 == 0 || num == 1){
+calcPrime(num);
+} else {
+break;
+}
+
+}
+lock.unlock();
+calcPrime(num);
+}
+}));
+}
+}
+
+
+pool::~pool(void)
+{
+this->done = true;
+this->cv.notify_all();
+for(thread& t : this->my_pool){
+t.join();
+}
+}
+
+void pool::add_task(int num){
+lock_guard<mutex> lock(this->mut);
+this->work_queue.push(num);
+this->cv.notify_all();
+}
+
+//synchronized.h
+#pragma once
+#include <iostream>
+#include <mutex>
+#include <string>
+
+using namespace std;
+
+class sync_wrapper{
+ostream& stream;
+mutex mut;
+public:
+sync_wrapper(ostream& s);
+void print(const string& str);
+ 
+};
+
+//synchronized.cpp
+#include "stdafx.h"
+#include "synchronized.h"
+
+sync_wrapper::sync_wrapper(ostream& s): stream(s) {}
+
+void sync_wrapper::print(const string& str){
+lock_guard<mutex> guard(mut);
+stream << str;
+}
+
+// hsha.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <sstream>
+#include <chrono>
+#include "pool.h"
+#include "synchronized.h"
+
+using namespace std;
+using namespace chrono;
+
+
+
+
+
+int main(int argc, char* argv[])
+{
+pool p(5);
+sync_wrapper printer(cout);
+
+p.add_task(77);
+p.add_task(31);
+p.add_task(15);
+p.add_task(475);
+p.add_task(7657243);
+p.add_task(263);
+p.add_task(6047);
+p.add_task(15485863);
+p.add_task(234594);
+p.add_task(1234);
+p.add_task(7656576);
+p.add_task(2342);
+p.add_task(643452);
+
+this_thread::sleep_for(seconds(5));
+
+return 0;
+}
+
+Output:
+Leader thread is now: 4520
+Leader thread is now: 6516
+77: false
+Leader thread is now: 6824
+31: true
+Leader thread is now: 6424
+15: false
+Leader thread is now: 860
+475: false
+Leader thread is now: 4520
+7657243: false
+Leader thread is now: 6516
+263: true
+Leader thread is now: 6824
+6047: true
+Leader thread is now: 6424
+15485863: true
+234594: false
+1234: false
+7656576: false
+2342: false
+2342: false
+Leader thread is now: 860
+643452: false
+643452: false
+
+5) All of the test cases were very responsive with no noticeable delay. Streaming numbers in from a file was very fast and there was very little delay between computations.

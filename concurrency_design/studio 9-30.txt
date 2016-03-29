@@ -1,0 +1,849 @@
+1. Ethan Rabb, Kevin Kieselbach 
+
+2. To define rectangular regions of each array whose elements are contiguous in memory, we would have to split the 2D array by rows (assign a set of contiguous rows to a thread and have that thread operate on all columns for those rows). This technique applies to all 2D arrays since they are stored in row major order.
+
+row: 0 col: 0 address: 004BF6F4
+row: 0 col: 1 address: 004BF6F8
+row: 0 col: 2 address: 004BF6FC
+row: 0 col: 3 address: 004BF700
+row: 0 col: 4 address: 004BF704
+row: 0 col: 5 address: 004BF708
+row: 0 col: 6 address: 004BF70C
+row: 0 col: 7 address: 004BF710
+row: 0 col: 8 address: 004BF714
+row: 0 col: 9 address: 004BF718
+row: 0 col: 10 address: 004BF71C
+row: 0 col: 11 address: 004BF720
+row: 0 col: 12 address: 004BF724
+row: 0 col: 13 address: 004BF728
+row: 0 col: 14 address: 004BF72C
+row: 0 col: 15 address: 004BF730
+row: 1 col: 0 address: 004BF734
+row: 1 col: 1 address: 004BF738
+row: 1 col: 2 address: 004BF73C
+row: 1 col: 3 address: 004BF740
+row: 1 col: 4 address: 004BF744
+row: 1 col: 5 address: 004BF748
+row: 1 col: 6 address: 004BF74C
+row: 1 col: 7 address: 004BF750
+row: 1 col: 8 address: 004BF754
+row: 1 col: 9 address: 004BF758
+row: 1 col: 10 address: 004BF75C
+row: 1 col: 11 address: 004BF760
+row: 1 col: 12 address: 004BF764
+row: 1 col: 13 address: 004BF768
+row: 1 col: 14 address: 004BF76C
+row: 1 col: 15 address: 004BF770
+row: 2 col: 0 address: 004BF774
+row: 2 col: 1 address: 004BF778
+row: 2 col: 2 address: 004BF77C
+row: 2 col: 3 address: 004BF780
+row: 2 col: 4 address: 004BF784
+row: 2 col: 5 address: 004BF788
+row: 2 col: 6 address: 004BF78C
+row: 2 col: 7 address: 004BF790
+row: 2 col: 8 address: 004BF794
+row: 2 col: 9 address: 004BF798
+row: 2 col: 10 address: 004BF79C
+row: 2 col: 11 address: 004BF7A0
+row: 2 col: 12 address: 004BF7A4
+row: 2 col: 13 address: 004BF7A8
+row: 2 col: 14 address: 004BF7AC
+row: 2 col: 15 address: 004BF7B0
+row: 3 col: 0 address: 004BF7B4
+row: 3 col: 1 address: 004BF7B8
+row: 3 col: 2 address: 004BF7BC
+row: 3 col: 3 address: 004BF7C0
+row: 3 col: 4 address: 004BF7C4
+row: 3 col: 5 address: 004BF7C8
+row: 3 col: 6 address: 004BF7CC
+row: 3 col: 7 address: 004BF7D0
+row: 3 col: 8 address: 004BF7D4
+row: 3 col: 9 address: 004BF7D8
+row: 3 col: 10 address: 004BF7DC
+row: 3 col: 11 address: 004BF7E0
+row: 3 col: 12 address: 004BF7E4
+row: 3 col: 13 address: 004BF7E8
+row: 3 col: 14 address: 004BF7EC
+row: 3 col: 15 address: 004BF7F0
+row: 0 col: 0 address: 004BF5EC
+row: 0 col: 1 address: 004BF5F0
+row: 0 col: 2 address: 004BF5F4
+row: 0 col: 3 address: 004BF5F8
+row: 1 col: 0 address: 004BF5FC
+row: 1 col: 1 address: 004BF600
+row: 1 col: 2 address: 004BF604
+row: 1 col: 3 address: 004BF608
+row: 2 col: 0 address: 004BF60C
+row: 2 col: 1 address: 004BF610
+row: 2 col: 2 address: 004BF614
+row: 2 col: 3 address: 004BF618
+row: 3 col: 0 address: 004BF61C
+row: 3 col: 1 address: 004BF620
+row: 3 col: 2 address: 004BF624
+row: 3 col: 3 address: 004BF628
+row: 4 col: 0 address: 004BF62C
+row: 4 col: 1 address: 004BF630
+row: 4 col: 2 address: 004BF634
+row: 4 col: 3 address: 004BF638
+row: 5 col: 0 address: 004BF63C
+row: 5 col: 1 address: 004BF640
+row: 5 col: 2 address: 004BF644
+row: 5 col: 3 address: 004BF648
+row: 6 col: 0 address: 004BF64C
+row: 6 col: 1 address: 004BF650
+row: 6 col: 2 address: 004BF654
+row: 6 col: 3 address: 004BF658
+row: 7 col: 0 address: 004BF65C
+row: 7 col: 1 address: 004BF660
+row: 7 col: 2 address: 004BF664
+row: 7 col: 3 address: 004BF668
+row: 8 col: 0 address: 004BF66C
+row: 8 col: 1 address: 004BF670
+row: 8 col: 2 address: 004BF674
+row: 8 col: 3 address: 004BF678
+row: 9 col: 0 address: 004BF67C
+row: 9 col: 1 address: 004BF680
+row: 9 col: 2 address: 004BF684
+row: 9 col: 3 address: 004BF688
+row: 10 col: 0 address: 004BF68C
+row: 10 col: 1 address: 004BF690
+row: 10 col: 2 address: 004BF694
+row: 10 col: 3 address: 004BF698
+row: 11 col: 0 address: 004BF69C
+row: 11 col: 1 address: 004BF6A0
+row: 11 col: 2 address: 004BF6A4
+row: 11 col: 3 address: 004BF6A8
+row: 12 col: 0 address: 004BF6AC
+row: 12 col: 1 address: 004BF6B0
+row: 12 col: 2 address: 004BF6B4
+row: 12 col: 3 address: 004BF6B8
+row: 13 col: 0 address: 004BF6BC
+row: 13 col: 1 address: 004BF6C0
+row: 13 col: 2 address: 004BF6C4
+row: 13 col: 3 address: 004BF6C8
+row: 14 col: 0 address: 004BF6CC
+row: 14 col: 1 address: 004BF6D0
+row: 14 col: 2 address: 004BF6D4
+row: 14 col: 3 address: 004BF6D8
+row: 15 col: 0 address: 004BF6DC
+row: 15 col: 1 address: 004BF6E0
+row: 15 col: 2 address: 004BF6E4
+row: 15 col: 3 address: 004BF6E8
+row: 0 col: 0 address: 004BF4E4
+row: 0 col: 1 address: 004BF4E8
+row: 0 col: 2 address: 004BF4EC
+row: 0 col: 3 address: 004BF4F0
+row: 0 col: 4 address: 004BF4F4
+row: 0 col: 5 address: 004BF4F8
+row: 0 col: 6 address: 004BF4FC
+row: 0 col: 7 address: 004BF500
+row: 1 col: 0 address: 004BF504
+row: 1 col: 1 address: 004BF508
+row: 1 col: 2 address: 004BF50C
+row: 1 col: 3 address: 004BF510
+row: 1 col: 4 address: 004BF514
+row: 1 col: 5 address: 004BF518
+row: 1 col: 6 address: 004BF51C
+row: 1 col: 7 address: 004BF520
+row: 2 col: 0 address: 004BF524
+row: 2 col: 1 address: 004BF528
+row: 2 col: 2 address: 004BF52C
+row: 2 col: 3 address: 004BF530
+row: 2 col: 4 address: 004BF534
+row: 2 col: 5 address: 004BF538
+row: 2 col: 6 address: 004BF53C
+row: 2 col: 7 address: 004BF540
+row: 3 col: 0 address: 004BF544
+row: 3 col: 1 address: 004BF548
+row: 3 col: 2 address: 004BF54C
+row: 3 col: 3 address: 004BF550
+row: 3 col: 4 address: 004BF554
+row: 3 col: 5 address: 004BF558
+row: 3 col: 6 address: 004BF55C
+row: 3 col: 7 address: 004BF560
+row: 4 col: 0 address: 004BF564
+row: 4 col: 1 address: 004BF568
+row: 4 col: 2 address: 004BF56C
+row: 4 col: 3 address: 004BF570
+row: 4 col: 4 address: 004BF574
+row: 4 col: 5 address: 004BF578
+row: 4 col: 6 address: 004BF57C
+row: 4 col: 7 address: 004BF580
+row: 5 col: 0 address: 004BF584
+row: 5 col: 1 address: 004BF588
+row: 5 col: 2 address: 004BF58C
+row: 5 col: 3 address: 004BF590
+row: 5 col: 4 address: 004BF594
+row: 5 col: 5 address: 004BF598
+row: 5 col: 6 address: 004BF59C
+row: 5 col: 7 address: 004BF5A0
+row: 6 col: 0 address: 004BF5A4
+row: 6 col: 1 address: 004BF5A8
+row: 6 col: 2 address: 004BF5AC
+row: 6 col: 3 address: 004BF5B0
+row: 6 col: 4 address: 004BF5B4
+row: 6 col: 5 address: 004BF5B8
+row: 6 col: 6 address: 004BF5BC
+row: 6 col: 7 address: 004BF5C0
+row: 7 col: 0 address: 004BF5C4
+row: 7 col: 1 address: 004BF5C8
+row: 7 col: 2 address: 004BF5CC
+row: 7 col: 3 address: 004BF5D0
+row: 7 col: 4 address: 004BF5D4
+row: 7 col: 5 address: 004BF5D8
+row: 7 col: 6 address: 004BF5DC
+row: 7 col: 7 address: 004BF5E0
+
+
+
+3.  Hardware concurrency was 8, so we used 8 threads.
+
+// Studio9-30.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <algorithm>
+#include <thread>
+
+using namespace std;
+
+template<int ROWS, int COLS>
+int countArray(int value, int a[ROWS][COLS], int rbegin, int rend, int cbegin, int cend)
+{
+	int count = 0;
+	for (int i = rbegin; i < rend; i++)
+	{ 
+		for (int j = cbegin; j < cend; j++)
+		{
+			if (a[i][j] == value)
+			{ 
+				count++; 
+			}
+		}
+	}
+
+	return count;
+};
+
+int main(int argc, char* argv[])
+{
+	int a[4][16];
+	int b[16][4];
+	int c[8][8];
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			a[i][j] = 16*i + j;
+		}
+	}
+
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			b[i][j] = 4*i + j;
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			c[i][j] = 8*i + j;
+		}
+	}
+
+	cout << thread::hardware_concurrency() << endl;
+
+	// Split into rectangles
+	thread t1([&a]{ cout << countArray<4,16>(5, a, 0, 4, 0, 2) << endl; });
+	thread t2([&a]{ cout << countArray<4,16>(5, a, 0, 4, 2, 4) << endl; });
+	thread t3([&a]{ cout << countArray<4,16>(5, a, 0, 4, 4, 6) << endl; });
+	thread t4([&a]{ cout << countArray<4,16>(5, a, 0, 4, 6, 8) << endl; });
+	thread t5([&a]{ cout << countArray<4,16>(5, a, 0, 4, 8, 10) << endl; });
+	thread t6([&a]{ cout << countArray<4,16>(5, a, 0, 4, 10, 12) << endl; });
+	thread t7([&a]{ cout << countArray<4,16>(5, a, 0, 4, 12, 14) << endl; });
+	thread t8([&a]{ cout << countArray<4,16>(5, a, 0, 4, 14, 16) << endl; });
+
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+	t5.join();
+	t6.join();
+	t7.join();
+	t8.join();
+
+	// Search for different values
+	thread t9([&a]{ cout << countArray<4,16>(5, a, 0, 4, 0, 16) << endl; });
+	thread t10([&a]{ cout << countArray<4,16>(10, a, 0, 4, 0, 16) << endl; });
+	thread t11([&a]{ cout << countArray<4,16>(15, a, 0, 4, 0, 16) << endl; });
+	thread t12([&a]{ cout << countArray<4,16>(20, a, 0, 4, 0, 16) << endl; });
+	thread t13([&a]{ cout << countArray<4,16>(25, a, 0, 4, 0, 16) << endl; });
+	thread t14([&a]{ cout << countArray<4,16>(30, a, 0, 4, 0, 16) << endl; });
+	thread t15([&a]{ cout << countArray<4,16>(35, a, 0, 4, 0, 16) << endl; });
+	thread t16([&a]{ cout << countArray<4,16>(40, a, 0, 4, 0, 16) << endl; });
+
+	t9.join();
+	t10.join();
+	t11.join();
+	t12.join();
+	t13.join();
+	t14.join();
+	t15.join();
+	t16.join();
+
+	return 0;
+}
+
+
+
+8
+0
+0
+1
+0
+0
+0
+0
+0
+1
+1
+1
+1
+1
+1
+1
+1
+
+
+
+4. The interesting part of the design is using templates to pass the dimensions of the 2D arrays so that the compiler know how to index into them. Passing 2D arrays to a function in C is a major pain, unless the compiler supports a non-standard feature that allows you to pass the dimensions as an argument.
+
+// Studio9-30.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <algorithm>
+#include <thread>
+
+using namespace std;
+template<int ROWS, int COLS>
+void addArrays(int a[ROWS][COLS], int b[ROWS][COLS], int c[ROWS][COLS], int rbegin, int rend, int cbegin, int cend)
+{
+	for (int i = rbegin; i < rend; i++)
+	{ 
+		for (int j = cbegin; j < cend; j++)
+		{
+			c[i][j] = a[i][j] + b[i][j];
+		}
+	}
+};
+
+int main(int argc, char* argv[])
+{
+	int a[4][16];
+	int b[4][16];
+	int c[4][16];
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			a[i][j] = 16*i + j;
+			b[i][j] = 16*i + j;
+		}
+	}
+
+	cout << thread::hardware_concurrency() << endl;
+
+	// Split into rectangles
+	thread t1([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 0, 2); });
+	thread t2([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 2, 4); });
+	thread t3([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 4, 6); });
+	thread t4([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 6, 8); });
+	thread t5([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 8, 10); });
+	thread t6([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 10, 12); });
+	thread t7([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 12, 14); });
+	thread t8([&a, &b, &c]{ addArrays<4,16>(a, b, c, 0, 4, 14, 16); });
+
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+	t5.join();
+	t6.join();
+	t7.join();
+	t8.join();
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			cout << c[i][j] << endl;
+		}
+	}
+
+	return 0;
+}
+
+
+8
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+42
+44
+46
+48
+50
+52
+54
+56
+58
+60
+62
+64
+66
+68
+70
+72
+74
+76
+78
+80
+82
+84
+86
+88
+90
+92
+94
+96
+98
+100
+102
+104
+106
+108
+110
+112
+114
+116
+118
+120
+122
+124
+126
+
+
+5. We compared the output against the normal (non-partitioned) matrix multiplication result and they matched.
+
+// Studio9-30.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <algorithm>
+#include <thread>
+#include <cassert>
+
+using namespace std;
+
+template<int M, int N, int P>
+void multiplyArrays(int a[M][P], int a_rbegin, int a_rend, int a_cbegin, int a_cend, 
+					int b[P][N], int b_rbegin, int b_rend, int b_cbegin, int b_cend, 
+					int c[M][N], int c_rbegin, int c_rend, int c_cbegin, int c_cend)
+{
+	int m = a_rend - a_rbegin;
+	int n = b_cend - b_cbegin;
+	int p = a_cend - a_cbegin;
+
+	assert(m == c_rend - c_rbegin);
+	assert(n == c_cend - c_cbegin);
+	assert(p == b_rend - b_rbegin);
+
+	for (int i = 0; i < m; i++)
+	{ 
+		for (int j = 0; j < n; j++)
+		{
+			c[c_rbegin + i][c_cbegin + j] = 0;
+			for (int k = 0; k < p; k++)
+			{
+				c[c_rbegin + i][c_cbegin + j] += a[a_rbegin + i][a_cbegin + k] + b[b_rbegin + k][c_cbegin + j];
+			}
+		}
+	}
+};
+
+int main(int argc, char* argv[])
+{
+	int a[16][4];
+	int b[4][16];
+	int c[16][16];
+
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			a[i][j] = 4*i + j;
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			b[i][j] = 16*i + j;
+		}
+	}
+
+	cout << thread::hardware_concurrency() << endl;
+
+	// Split into rectangles
+	thread t1([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4, 
+		b, 0, 4, 0, 2,
+		c, 0, 16, 0, 2); 
+	});
+	thread t2([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4, 
+		b, 0, 4, 2, 4,
+		c, 0, 16, 2, 4); 
+	});
+	thread t3([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4, 
+		b, 0, 4, 4, 6,
+		c, 0, 16, 4, 6); 
+	});
+	thread t4([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4,
+		b, 0, 4, 6, 8,
+		c, 0, 16, 6, 8); 
+	});
+	thread t5([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4,
+		b, 0, 4, 8, 10,
+		c, 0, 16, 8, 10); 
+	});
+	thread t6([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4,
+		b, 0, 4, 10, 12,
+		c, 0, 16, 10, 12); 
+	});
+	thread t7([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4, 
+		b, 0, 4, 12, 14,
+		c, 0, 16, 12, 14); 
+	});
+	thread t8([&a, &b, &c]{ multiplyArrays<16,16,4>(
+		a, 0, 16, 0, 4,
+		b, 0, 4, 14, 16,
+		c, 0, 16, 14, 16); 
+	});
+
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+	t5.join();
+	t6.join();
+	t7.join();
+	t8.join();
+
+	for (int i = 0; i < 16; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			cout << c[i][j] << endl;
+		}
+	}
+
+	return 0;
+}
+
+
+8
+102
+106
+110
+114
+118
+122
+126
+130
+134
+138
+142
+146
+150
+154
+158
+162
+118
+122
+126
+130
+134
+138
+142
+146
+150
+154
+158
+162
+166
+170
+174
+178
+134
+138
+142
+146
+150
+154
+158
+162
+166
+170
+174
+178
+182
+186
+190
+194
+150
+154
+158
+162
+166
+170
+174
+178
+182
+186
+190
+194
+198
+202
+206
+210
+166
+170
+174
+178
+182
+186
+190
+194
+198
+202
+206
+210
+214
+218
+222
+226
+182
+186
+190
+194
+198
+202
+206
+210
+214
+218
+222
+226
+230
+234
+238
+242
+198
+202
+206
+210
+214
+218
+222
+226
+230
+234
+238
+242
+246
+250
+254
+258
+214
+218
+222
+226
+230
+234
+238
+242
+246
+250
+254
+258
+262
+266
+270
+274
+230
+234
+238
+242
+246
+250
+254
+258
+262
+266
+270
+274
+278
+282
+286
+290
+246
+250
+254
+258
+262
+266
+270
+274
+278
+282
+286
+290
+294
+298
+302
+306
+262
+266
+270
+274
+278
+282
+286
+290
+294
+298
+302
+306
+310
+314
+318
+322
+278
+282
+286
+290
+294
+298
+302
+306
+310
+314
+318
+322
+326
+330
+334
+338
+294
+298
+302
+306
+310
+314
+318
+322
+326
+330
+334
+338
+342
+346
+350
+354
+310
+314
+318
+322
+326
+330
+334
+338
+342
+346
+350
+354
+358
+362
+366
+370
+326
+330
+334
+338
+342
+346
+350
+354
+358
+362
+366
+370
+374
+378
+382
+386
+342
+346
+350
+354
+358
+362
+366
+370
+374
+378
+382
+386
+390
+394
+398
+402
+
+
+
+

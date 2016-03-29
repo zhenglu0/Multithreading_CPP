@@ -1,0 +1,13 @@
+1) Kevin Kieselbach, Ethan Rabb
+
+2) The program will deadlock if at any point in the program, there have been more cumulative calls to runService than to enqueue because the program will wait until there is another element in the queue, but nothing will ever add that element.
+
+3) This time there is no deadlock because a daemon thread continuously pulls items off the queue as they become available. Since it is a daemon thread with that sole purpose, there is no deadlock when it blocks waiting for more items. The main thread can continue to add items to the queue or make other forward progress.
+
+4) The program waits while the values are enqueued, then prints out the values. At the end of each call to deactivate, the default return value of 0 is printed since the pop methods must return something when the queue is shutdown. The ActiveObject could check for the default value and avoid printing it, but there is no invalid int value per se to use as a default.
+
+5) 
+
+output: 1 2 3 4
+
+In this excercise, we can start one ActiveObject and enqueue elements in it, but nothing is printed until we activate the ActiveObject it points to.
