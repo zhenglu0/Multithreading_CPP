@@ -1,4 +1,4 @@
-# Multithreading_CPP
+## Multithreading CPP
 
 * C ++ Multithreading and design pattern class studio exercisess
 
